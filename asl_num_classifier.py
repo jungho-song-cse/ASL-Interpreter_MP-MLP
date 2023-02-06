@@ -16,6 +16,8 @@ from model import KeyPointClassifier
 def get_args():
     parser = argparse.ArgumentParser()
 
+    parser.add_argument("--device", default=0)
+
     parser.add_argument('--use_static_image_mode', action='store_true')
     parser.add_argument("--min_detection_confidence",
                         help='min_detection_confidence',
@@ -25,8 +27,6 @@ def get_args():
                         help='min_tracking_confidence',
                         type=int,
                         default=0.5)
-
-    parser.add_argument("--input_video",dest="input_video",action="store")
 
     args = parser.parse_args()
 
@@ -44,7 +44,7 @@ def main():
     use_brect = True
 
     # Camera preparation ###############################################################
-    cap = cv.VideoCapture(0)
+    cap = cv.VideoCapture(args.device)
 
     # Model load #############################################################
     mp_hands = mp.solutions.hands
